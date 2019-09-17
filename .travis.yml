@@ -32,7 +32,7 @@ install:
         yum install -y oracle-softwarecollection-release-el7 &&
         /usr/bin/ol_yum_configure.sh &&
         yum repolist &&
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd &&
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd wget tar &&
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
@@ -47,10 +47,12 @@ install:
         rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm &&
         curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
         rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
-        curl -O  https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackageSource/cmake3-3.13.4-2.el7.src.rpm &&
-        rpm -i cmake3-3.13.4-2.el7.src.rpm &&
-        cmake --version &&
         rpm -qa --last
+      '
+  - docker exec -i $DOCK sh -c '
+        yum -y install cmake3 &&
+        ln -s /usr/bin/cmake3 /bin/cmake &&
+        cmake --version &&
       '
   - docker exec -i $DOCK sh -c '
         yum install -y rh-python36 rh-python36-python-devel &&
@@ -63,6 +65,7 @@ install:
     
 script:
   - $RUN git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc
+  - $RUN gcc --version
   - $RUN ls -lsr
   - $STOP
 
