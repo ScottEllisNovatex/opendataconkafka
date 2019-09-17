@@ -36,7 +36,7 @@ install:
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
-        g++ --version &&
+        g++ --version 
       '
   - docker exec -i $DOCK sh -c '
         curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm &&
