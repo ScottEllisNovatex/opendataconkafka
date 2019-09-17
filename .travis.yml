@@ -32,7 +32,8 @@ install:
         yum install -y oracle-softwarecollection-release-el7
         /usr/bin/ol_yum_configure.sh
         yum repolist
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd        
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd
+        echo "This is a test message"
       '
   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
   - export STOP="docker stop $DOCK"
