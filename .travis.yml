@@ -29,10 +29,10 @@ install:
   - DOCK=$(docker run -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
   # Need -y option on everything so it does not wait for input!!
   - docker exec -i $DOCK sh -c '
-        yum install -y oracle-softwarecollection-release-el7
-        /usr/bin/ol_yum_configure.sh
-        yum repolist
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd
+        yum install -y oracle-softwarecollection-release-el7 &&
+        /usr/bin/ol_yum_configure.sh &&
+        yum repolist &&
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd &&
         echo "This is a test message"
       '
   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
