@@ -46,8 +46,7 @@ install:
         curl -O http://public-yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/scl-utils-build-20130529-19.el7.x86_64.rpm &&
         rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm &&
         curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
-        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
-        rpm -qa --last
+        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm 
       '
   - docker exec -i $DOCK sh -c '
         yum install -y cmake3 &&
@@ -59,13 +58,32 @@ install:
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
         python --version 
+        '
+  - docker exec -i $DOCK sh -c '
+        git clone https://github.com/edenhill/librdkafka librdkafka &&
+        cd librdkafka &&
+        ./configure --install-deps &&
+        make &&
+        make install &&
+        cd ..
+        '
+  - docker exec -i $DOCK sh -c '
+        git clone https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
+        cd confluent-kafka-python &&
+        python setup.py build &&
+        cd ..
+        '
+  - docker exec -i $DOCK sh -c '
+        git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc &&
+        gcc --version &&
+        pwd &&
+        ls -lsr
       '
   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
   - export STOP="docker stop $DOCK"
     
 script:
-  - $RUN git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc
-  - $RUN gcc --version
+  - $RUN python --version
   - $RUN ls -lsr
   - $STOP
 
