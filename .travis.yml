@@ -50,9 +50,9 @@ install:
         rpm -qa --last
       '
   - docker exec -i $DOCK sh -c '
-        yum -y install cmake3 &&
+        yum install -y cmake3 &&
         ln -s /usr/bin/cmake3 /bin/cmake &&
-        cmake --version &&
+        cmake --version 
       '
   - docker exec -i $DOCK sh -c '
         yum install -y rh-python36 rh-python36-python-devel &&
