@@ -15,6 +15,10 @@ env:
 
 dist: bionic
 
+branches:
+  only:
+    - master
+
 before_install:
   - echo "Testing Docker Hub credentials"
   
