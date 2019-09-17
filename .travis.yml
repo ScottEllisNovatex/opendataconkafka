@@ -27,43 +27,15 @@ install:
   - mkdir -p build/install && cd build
   - export INSTALL_PREFIX=$(pwd)/install
   - DOCK=$(docker run -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
+  # Need -y option on everything so it does not wait for input!!
   - docker exec -i $DOCK sh -c '
-        # Need -y option on everythong so it does not wait for input!!
         yum install -y oracle-softwarecollection-release-el7
         /usr/bin/ol_yum_configure.sh
         yum repolist
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd
-        # We want to install the latest compilers and python versions.
-        yum install -y devtoolset-8-gcc-c++
-        source scl_source enable devtoolset-8
-        gcc --version
-        g++ --version
-        #libmodbus
-        curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm
-        curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm
-        rpm -i libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm
-        rpm -i libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm     
-        # To get Python3.6 we need scl-util-build tools.
-        curl -O http://public-yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/scl-utils-build-20130529-19.el7.x86_64.rpm
-        rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm
-        # libmicrohttpd
-        curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm
-        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm
-        #Python 3.6
-        yum install -y rh-python36 rh-python36-python-devel
-        source scl_source enable rh-python36 
-        export PYTHON_HOME="/opt/rh/rh-python36/root/usr"
-        python --version
-        # CMake 3.13
-        curl -O  https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackageSource/cmake3-3.13.4-2.el7.src.rpm
-        rpm -i cmake3-3.13.4-2.el7.src.rpm
-        cmake --version
-        # Get folder list
-        ls -lsr
-        git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd        
       '
-   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
-   - export STOP="docker stop $DOCK"
+  - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
+  - export STOP="docker stop $DOCK"
     
 script:
   - $RUN ls -lsr
