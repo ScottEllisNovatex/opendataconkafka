@@ -46,12 +46,23 @@ install:
         curl -O http://public-yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/scl-utils-build-20130529-19.el7.x86_64.rpm &&
         rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm &&
         curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
-        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm
+        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
+        curl -O  https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackageSource/cmake3-3.13.4-2.el7.src.rpm &&
+        rpm -i cmake3-3.13.4-2.el7.src.rpm &&
+        cmake --version &&
+        rpm -qa --last
+      '
+  - docker exec -i $DOCK sh -c '
+        yum install -y rh-python36 rh-python36-python-devel &&
+        source scl_source enable rh-python36 &&
+        export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
+        python --version 
       '
   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
   - export STOP="docker stop $DOCK"
     
 script:
+  - $RUN git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc
   - $RUN ls -lsr
   - $STOP
 
