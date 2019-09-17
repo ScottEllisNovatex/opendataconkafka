@@ -60,6 +60,7 @@ install:
         python --version 
         '
   - docker exec -i $DOCK sh -c '
+        source scl_source enable devtoolset-8 &&
         git clone https://github.com/edenhill/librdkafka librdkafka &&
         cd librdkafka &&
         ./configure --install-deps &&
@@ -68,6 +69,8 @@ install:
         cd ..
         '
   - docker exec -i $DOCK sh -c '
+        source scl_source enable devtoolset-8 &&
+        source scl_source enable rh-python36 &&
         git clone https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
