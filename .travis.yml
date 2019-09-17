@@ -2,24 +2,22 @@
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
 
-language: minimal
+language: python
 
 git:
   depth: false # We might not need anything from git at this level?
   
-addons:
-  apt:
-    update: true #Just updates the list of packages could add packages here if desired!
-
-os:
-  - linux
+services:
+  - docker
 
 env:
   - BUILD_CONFIG=Release
-  - DOCKER_BUILD="OEL"
 
 dist: bionic
 
+before_install:
+  - echo "Testing Docker Hub credentials"
+  
 install:
   - export SRC_DIR=$(pwd)
   - mkdir -p build/install && cd build
@@ -64,7 +62,6 @@ install:
         ls -lsr
         git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc
       '
-      # For use below.
    - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
    - export STOP="docker stop $DOCK"
     
