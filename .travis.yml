@@ -80,9 +80,10 @@ install:
         # Result is  ...
   - docker exec -i $DOCK sh -c '
         source scl_source enable devtoolset-8 &&
-        git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc &&
-        gcc --version &&
-        cd ./odc &&
+        git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git odc &&
+        ls -l &&
+        cd odc &&
+        git submodule update --init --recursive &&
         mkdir build &&
         cd build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/root/install -DCMAKE_SYSTEM_VERSION=generic -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_SYSTEM_VERSION=el7 -DCMAKE_C_COMPILER=gcc -DCMAKE_ASM_COMPILER=gcc -D CMAKE_CXX_COMPILER=c++ .. &&
