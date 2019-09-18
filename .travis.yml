@@ -99,12 +99,15 @@ install:
   - export STOP="docker stop $DOCK"
     
 script:
-  - $RUN ls -lR
+  - ls -lR /mnt/build
+  - $RUN ls -lR /
+  # Copy the two specific files for this test into the docker container
+  - $RUN /bin/cp -rf PyPortKafka.py /mnt/build/home/odc/bin/PyPortKafka.py
+  - $RUN /bin/cp -rf opendatacon.conf /mnt/build/home/opendatacon.conf
   - docker exec -i $DOCK sh -c '
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
-        /bin/cp -rf /home/PyPortKafka.py /home/odc/bin/PyPortKafka.py &&
-        cd /home/install/bin &&
+        cd /home/odc/bin &&
         LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
         '
   - $STOP
