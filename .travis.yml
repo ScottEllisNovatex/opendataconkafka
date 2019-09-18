@@ -61,7 +61,7 @@ install:
   - docker exec -i $DOCK sh -c '
         yum install -y libzstd &&
         source scl_source enable devtoolset-8 &&
-        git clone https://github.com/edenhill/librdkafka librdkafka &&
+        git clone --depth 1 https://github.com/edenhill/librdkafka librdkafka &&
         cd librdkafka &&
         ./configure --install-deps &&
         make &&
@@ -72,7 +72,7 @@ install:
   - docker exec -i $DOCK sh -c '
         source scl_source enable devtoolset-8 &&
         source scl_source enable rh-python36 &&
-        git clone https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
+        git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
         cd ..
@@ -82,8 +82,10 @@ install:
         source scl_source enable devtoolset-8 &&
         git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc &&
         gcc --version &&
-        cd odc &&
-        cmake -DFULL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/root/install -DCMAKE_SYSTEM_VERSION=generic -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_SYSTEM_VERSION=el7 -DCMAKE_C_COMPILER=gcc -DCMAKE_ASM_COMPILER=gcc -D CMAKE_CXX_COMPILER=c++ .. &&
+        cd ./odc &&
+        mkdir build &&
+        cd build &&
+        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/root/install -DCMAKE_SYSTEM_VERSION=generic -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_SYSTEM_VERSION=el7 -DCMAKE_C_COMPILER=gcc -DCMAKE_ASM_COMPILER=gcc -D CMAKE_CXX_COMPILER=c++ .. &&
         make -j3 &&
         make package &&
         make install &&
@@ -98,7 +100,7 @@ script:
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
         /bin/cp -rf /root/PyPortKafka.py odc/bin/PyPortKafka.py &&
-        cd ./odc/bin &&
+        cd ./odc/install/bin &&
         LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/root/opendatacon.conf"
         '
   - $STOP
