@@ -50,7 +50,7 @@ install:
         rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm 
       '
   - docker exec -i $DOCK sh -c '
-        yum install -y cmake3 &&
+        yum install -y cmake3-3.12.2 &&
         ln -s /usr/bin/cmake3 /bin/cmake &&
         cmake --version 
       '
@@ -90,7 +90,7 @@ install:
         git submodule update --init --recursive &&
         mkdir build &&
         cd build &&
-        cmake -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/odc/install  .. &&
+        cmake -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         cat /home/odc/build/CMakeFiles/CMakeError.log &&
         make -j3 &&
         make package &&
