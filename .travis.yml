@@ -87,7 +87,6 @@ install:
         git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git odc &&
         ls -l &&
         cd odc &&
-        git submodule update --init --recursive &&
         mkdir build &&
         cd build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
