@@ -90,7 +90,7 @@ install:
         git submodule update --init --recursive &&
         mkdir build &&
         cd build &&
-        cmake -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
+        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         cat /home/odc/build/CMakeFiles/CMakeError.log &&
         make -j3 &&
         make package &&
