@@ -32,7 +32,7 @@ install:
         yum install -y oracle-softwarecollection-release-el7 &&
         /usr/bin/ol_yum_configure.sh &&
         yum repolist &&
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make &&
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm &&
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
@@ -56,18 +56,20 @@ install:
   - docker exec -i $DOCK sh -c '
         yum install -y rh-python36 rh-python36-python-devel &&
         source scl_source enable rh-python36 &&
-        export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
         python --version 
         '
   - docker exec -i $DOCK sh -c '
+        yum install -y zlib libcrypto libzstd liblz4 libsasl2 &&
         source scl_source enable devtoolset-8 &&
         git clone https://github.com/edenhill/librdkafka librdkafka &&
         cd librdkafka &&
         ./configure --install-deps &&
         make &&
         make install &&
+        ls -lsr &&
         cd ..
         '
+        # Result is $DESTDIR/usr/local/lib/librdkafka++.so.1
   - docker exec -i $DOCK sh -c '
         source scl_source enable devtoolset-8 &&
         source scl_source enable rh-python36 &&
@@ -76,9 +78,15 @@ install:
         python setup.py build &&
         cd ..
         '
+        # Result is  ...
   - docker exec -i $DOCK sh -c '
+        source scl_source enable devtoolset-8 &&
         git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git ./odc &&
         gcc --version &&
+        cmake -DFULL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/root/install -DCMAKE_SYSTEM_VERSION=generic -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_SYSTEM_VERSION=el7 -DCMAKE_C_COMPILER=gcc -DCMAKE_ASM_COMPILER=gcc -D CMAKE_CXX_COMPILER=c++ .. &&
+        make -j3 &&
+        make package &&
+        make install &&
         pwd &&
         ls -lsr
       '
@@ -86,7 +94,13 @@ install:
   - export STOP="docker stop $DOCK"
     
 script:
-  - $RUN python --version
+  - docker exec -i $DOCK sh -c '
+        source scl_source enable rh-python36 &&
+        export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
+        /bin/cp -rf /root/PyPortKafka.py odc/bin/PyPortKafka.py &&
+        cd ./odc/bin &&
+        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/root/opendatacon.conf"
+        '
   - $RUN ls -lsr
   - $STOP
 
