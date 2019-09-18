@@ -84,13 +84,12 @@ install:
   - docker exec -i $DOCK sh -c '
         cd /home &&
         source scl_source enable devtoolset-8 &&
-        git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git odc &&
+        git clone -b develop https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
-        cd odc &&
+        cd odcsrc &&
         mkdir build &&
         cd build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
-        cat /home/odc/build/CMakeFiles/CMakeError.log &&
         make -j3 &&
         make package &&
         make install &&
@@ -105,8 +104,8 @@ script:
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
         /bin/cp -rf /home/PyPortKafka.py /home/odc/bin/PyPortKafka.py &&
-        cd /home/odc/install/bin &&
-        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/root/opendatacon.conf"
+        cd /home/install/bin &&
+        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
         '
   - $STOP
 
