@@ -39,6 +39,7 @@ install:
         g++ --version 
       '
   - docker exec -i $DOCK sh -c '
+        cd /home &&
         curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm &&
         curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm &&
         rpm -i libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm &&
@@ -59,17 +60,19 @@ install:
         python --version 
         '
   - docker exec -i $DOCK sh -c '
+        cd /home &&
         yum install -y libzstd &&
         source scl_source enable devtoolset-8 &&
         git clone --depth 1 https://github.com/edenhill/librdkafka librdkafka &&
         cd librdkafka &&
-        ./configure --install-deps &&
+        ./configure --source-deps-only &&
         make &&
         make install &&
         cd ..
         '
         # Result is $DESTDIR/usr/local/lib/librdkafka++.so.1
   - docker exec -i $DOCK sh -c '
+        cd /home &&
         source scl_source enable devtoolset-8 &&
         source scl_source enable rh-python36 &&
         git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
@@ -79,6 +82,7 @@ install:
         '
         # Result is  ...
   - docker exec -i $DOCK sh -c '
+        cd /home &&
         source scl_source enable devtoolset-8 &&
         git clone --depth 1 -b develop https://github.com/ScottEllisNovatex/opendatacon.git odc &&
         ls -l &&
@@ -86,7 +90,8 @@ install:
         git submodule update --init --recursive &&
         mkdir build &&
         cd build &&
-        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/root/install -DCMAKE_SYSTEM_VERSION=generic -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_SYSTEM_VERSION=el7 -DCMAKE_C_COMPILER=gcc -DCMAKE_ASM_COMPILER=gcc -D CMAKE_CXX_COMPILER=c++ .. &&
+        cmake -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/odc/install  .. &&
+        cat /home/odc/build/CMakeFiles/CMakeError.log &&
         make -j3 &&
         make package &&
         make install &&
@@ -100,8 +105,8 @@ script:
   - docker exec -i $DOCK sh -c '
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
-        /bin/cp -rf /root/PyPortKafka.py odc/bin/PyPortKafka.py &&
-        cd ./odc/install/bin &&
+        /bin/cp -rf /home/PyPortKafka.py /home/odc/bin/PyPortKafka.py &&
+        cd /home/odc/install/bin &&
         LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/root/opendatacon.conf"
         '
   - $STOP
