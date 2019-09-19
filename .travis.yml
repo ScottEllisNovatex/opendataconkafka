@@ -27,7 +27,7 @@ install:
   # Run the docker image and keep the returned container name for use in exec calls.
   # Run detatched, the volume command is -v hostdir:containerdir, -rm indicates cleanup on exit unnamed vols, 
   # -ti maintain a terminal, the docker image is oraclelinux:7.6
-  - DOCK=$(docker run -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
+  - DOCK=$(docker run --cap-add SYS_ADMIN -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
   # Need -y option on everything so it does not wait for input!!
   - docker exec -i $DOCK sh -c '
         yum install -y oracle-softwarecollection-release-el7 &&
