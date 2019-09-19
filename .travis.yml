@@ -24,6 +24,9 @@ before_install:
   
 install:
   - export SRC_DIR=$(pwd)
+  # Run the docker image and keep the returned container name for use in exec calls.
+  # Run detatched, the volume command is -v hostdir:containerdir, -rm indicates cleanup on exit unnamed vols, 
+  # -ti maintain a terminal, the docker image is oraclelinux:7.6
   - DOCK=$(docker run -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
   # Need -y option on everything so it does not wait for input!!
   - docker exec -i $DOCK sh -c '
@@ -98,14 +101,18 @@ install:
     
 script:
   # Get a fulldir listing into a log file that we can look at later to find things!
-  - $RUN ls -lR / > /mnt/build/dirlisting.log
+    - docker exec -i $DOCK sh -c '
+        ls -lR / > dirlisting.log &&
+        /bin/cp -rf dirlisting.log /mnt/build/
+        '
+    ls -la
   # Copy the two specific files for this test into the docker container
-  - $RUN /bin/cp -rf /mnt/build/PyPortKafka.py /home/odc/bin/PyPortKafka.py
+  - $RUN /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/bin/PyPortKafka.py
   - $RUN /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf
   - docker exec -i $DOCK sh -c '
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
-        cd /home/odc/bin &&
+        cd /home/odcsrc/bin &&
         LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
         '
   - $STOP
