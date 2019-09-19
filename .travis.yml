@@ -79,7 +79,7 @@ install:
         git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
-        cd ..
+        cd .. 
         '
         # Result is  ...
   - docker exec -i $DOCK sh -c '
@@ -101,11 +101,11 @@ install:
     
 script:
   # Get a fulldir listing into a log file that we can look at later to find things!
-    - docker exec -i $DOCK sh -c '
+  - docker exec -i $DOCK sh -c '
         ls -lR / > dirlisting.log &&
         /bin/cp -rf dirlisting.log /mnt/build/
         '
-    ls -la
+  - ls -la
   # Copy the two specific files for this test into the docker container
   - $RUN /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/bin/PyPortKafka.py
   - $RUN /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf
