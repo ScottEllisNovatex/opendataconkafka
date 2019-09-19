@@ -24,8 +24,6 @@ before_install:
   
 install:
   - export SRC_DIR=$(pwd)
-  - mkdir -p build/install && cd build
-  - export INSTALL_PREFIX=$(pwd)/install
   - DOCK=$(docker run -d -v $(pwd):/mnt/build --rm -ti library/oraclelinux:7.6)
   # Need -y option on everything so it does not wait for input!!
   - docker exec -i $DOCK sh -c '
@@ -99,11 +97,11 @@ install:
   - export STOP="docker stop $DOCK"
     
 script:
-  - ls -lR /mnt/build
-  - $RUN ls -lR /
+  # Get a fulldir listing into a log file that we can look at later to find things!
+  - $RUN ls -lR / > /mnt/build/dirlisting.log
   # Copy the two specific files for this test into the docker container
-  - $RUN /bin/cp -rf PyPortKafka.py /mnt/build/home/odc/bin/PyPortKafka.py
-  - $RUN /bin/cp -rf opendatacon.conf /mnt/build/home/opendatacon.conf
+  - $RUN /bin/cp -rf /mnt/build/PyPortKafka.py /home/odc/bin/PyPortKafka.py
+  - $RUN /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf
   - docker exec -i $DOCK sh -c '
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
