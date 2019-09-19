@@ -131,10 +131,13 @@ deploy:
   file_glob: true
   file: 
     - ./**/*.log
-    - ./**/librdkafka.so.1
-    - ./**/librdkafka.a
-    - build/build/lib.linux-x86_64-3.6/*
-    - opendatacon-*.sh
+    # The following need to deploy to this location on the target machine!
+    - /usr/local/lib/librdkafka.so.1
+    - /usr/local/lib/librdkafka.a
+    - /usr/local/lib/librdkafka++.so.1
+    - /usr/local/lib/librdkafka++.a
+    - /home/odcsrc/build/build/lib.linux-x86_64-3.6/**/*
+    - /home/odcsrc/build/opendatacon-*.sh
   name: "opendatacon_kafka_oel7.6 ${TRAVIS_TAG}"
   skip_cleanup: true
   draft: true
