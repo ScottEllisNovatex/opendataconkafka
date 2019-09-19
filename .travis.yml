@@ -123,8 +123,8 @@ script:
 #        '
   - $STOP
 before_deploy:
-    tar -zcvf /home/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
-    tar -zcvf /home/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
+  - tar -zcvf /home/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
+  - tar -zcvf /home/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
     
 deploy:
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
