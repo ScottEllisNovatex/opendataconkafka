@@ -106,10 +106,11 @@ script:
         /bin/cp -rf dirlisting.log /mnt/build/
         '
   - ls -la
+  - $RUN ls -la
   # Copy the two specific files for this test into the docker container
-  - $RUN /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/bin/PyPortKafka.py
-  - $RUN /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf
   - docker exec -i $DOCK sh -c '
+        /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
+        /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/bin/PyPortKafka.py && 
         source scl_source enable rh-python36 &&
         export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
         cd /home/odcsrc/bin &&
