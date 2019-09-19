@@ -122,7 +122,10 @@ script:
 #        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
 #        '
   - $STOP
-
+before_deploy:
+    tar -zcvf /home/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
+    tar -zcvf /home/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
+    
 deploy:
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
   provider: releases
@@ -131,12 +134,8 @@ deploy:
   file_glob: true
   file: 
     - ./**/*.log
-    # The following need to deploy to this location on the target machine!
-    - /usr/local/lib/librdkafka.so.1
-    - /usr/local/lib/librdkafka.a
-    - /usr/local/lib/librdkafka++.so.1
-    - /usr/local/lib/librdkafka++.a
-    - /home/odcsrc/build/build/lib.linux-x86_64-3.6/**/*
+    - /home/librdkafka_oel7.tgz
+    - /home/confluent-kafka-python_oel7.tgz
     - /home/odcsrc/build/opendatacon-*.sh
   name: "opendatacon_kafka_oel7.6 ${TRAVIS_TAG}"
   skip_cleanup: true
