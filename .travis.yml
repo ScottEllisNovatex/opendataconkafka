@@ -48,7 +48,8 @@ install:
         curl -O http://public-yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/scl-utils-build-20130529-19.el7.x86_64.rpm &&
         rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm &&
         curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
-        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm 
+        rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
+        rm *.rpm
       '
   - docker exec -i $DOCK sh -c '
         yum install -y cmake3-3.12.2 file &&
@@ -108,7 +109,9 @@ script:
   - ls -la
   # - $RUN ls -la # This is the same as the command above!! The RUN command sets the workdir to /mnt/build
   - $RUN ls -la /home
+  - $RUN ls -la /home/odcsrc
   - $RUN ls -la /home/odcsrc/build
+  - $RUN ls -la /home/odcsrc/build/build
   # Copy the two specific files for this test into the docker container
   - docker exec -i $DOCK sh -c '
         /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
