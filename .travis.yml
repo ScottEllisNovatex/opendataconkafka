@@ -124,7 +124,6 @@ script:
   - $STOP
 
 deploy:
-     
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
   provider: releases
   api_key:
@@ -136,11 +135,11 @@ deploy:
     - ./**/librdkafka.a
     - build/build/lib.linux-x86_64-3.6/*
     - opendatacon-*.sh
-  name: "opendatacon_draft ${TRAVIS_TAG}"
+  name: "opendatacon_kafka_oel7.6 ${TRAVIS_TAG}"
   skip_cleanup: true
   draft: true
   overwrite: true
   on:
-    branch: develop
+    branch: master
    
 
