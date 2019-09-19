@@ -102,10 +102,10 @@ install:
     
 script:
   # Get a fulldir listing into a log file that we can look at later to find things!
-  - docker exec -i $DOCK sh -c '
-        ls -lR / > dirlisting.log &&
-        /bin/cp -rf dirlisting.log /mnt/build/
-        '
+  #- docker exec -i $DOCK sh -c '
+  #      ls -lR / > dirlisting.log 
+  #      '
+  - $RUN ls -lR / > dirlisting.log
   - ls -la
   # - $RUN ls -la # This is the same as the command above!! The RUN command sets the workdir to /mnt/build
   - $RUN ls -la /home
@@ -113,14 +113,14 @@ script:
   - $RUN ls -la /home/odcsrc/build
   - $RUN ls -la /home/odcsrc/build/build
   # Copy the two specific files for this test into the docker container
-  - docker exec -i $DOCK sh -c '
-        /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
-        /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/build/bin/PyPortKafka.py && 
-        source scl_source enable rh-python36 &&
-        export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
-        cd /home/odcsrc/build/bin &&
-        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
-        '
+#  - docker exec -i $DOCK sh -c '
+#        /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
+#        /bin/cp -rf /mnt/build/PyPortKafka.py /home/odcsrc/build/build/PyPortKafka.py && 
+#        source scl_source enable rh-python36 &&
+#        export PYTHON_HOME="/opt/rh/rh-python36/root/usr" &&
+#        cd /home/odcsrc/build/build &&
+#        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
+#        '
   - $STOP
 
 deploy:
@@ -132,6 +132,9 @@ deploy:
   file_glob: true
   file: 
     - ./**/*.log
+    - ./**/librdkafka.so.1
+    - ./**/librdkafka.a
+    - build/build/lib.linux-x86_64-3.6/*
     - opendatacon-*.sh
   name: "opendatacon_draft ${TRAVIS_TAG}"
   skip_cleanup: true
