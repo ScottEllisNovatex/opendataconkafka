@@ -127,7 +127,7 @@ deploy:
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
   provider: releases
   api_key:
-    secure:    15MT0ZY2lVjvl7cdz+h6RFVTIYpFHuMsNAoIwJwI4iLQdj9ybdq4t9VrqkMZ7THlhgoYXYJKbXmPJmmt8/s1x5tktkbhdu2AU3e0sOYluO8ciBUvBUt5Jak6DAZB6Anjvj/tQqJb5nldnAfZmgnK/5A1Qyn33GBpnb6j2W4hiINR88zPMNpk0q2MF2VKdcFDLgNgbwDgfwEKcWbuxNJ0/g6aJDfS6aSyqPnAX8S/fS0arJmdMwIiAiiVKLBtyD5L6PVhbeP+pPaFD+uEuB+hSyO2tTEl827J78Fe4PgWkmd6xuTkCcObvK90vOv+1sXHA+2mIUbpvceREtM6E2uiofTzhEvoNPd4MYbmk9EMbmofsjorM5807F/Lx3yT7bcn2SjFMbDT7KSvFXLFD2HPLURHKFQ7cveYU+4KofVNhR8jWSOgDYljIskLUrycaysKqs2LD+sgBL9j/9O8HZTJx0nG5juBuHZcKon775T097CDMJFu9GbEw808GDcmX85dZDg1xlldNZAtB1CBw+kYrsApqSv8QWeVSANsNpJf9IvdszQRaLjvalKohDLEA7M1QRcaDpjXzTMz3+bqEokjUgmbLSlzjxuWoMv5PfRZHXPJDBVPnECyoXbF8+b89xHQgLUnr598S3uZEWNB2BcSEky2qjoaUqeJQeeD/AUDY1Y=
+    secure:    bmcbUeZrlPdmg3EbFdk+uk4MaVweV85BIEE3UC6P/KjbUGe1GOS5ZMEHDffxfIrCWgpOKTyoKCmmBPnKM7BG5Z823ojgmhfs0YJ14IlwfEITcOIFTAs3giey1vYGbtAn5Rsk8z9LRL2nwZWg7iHblv7gTE8+/tFNgvcm6qPGtNH6+hcMV1/JVD4k99PSliJp3l34LOdFHeXVK7T+cKVGWUH0MrTuk80fzjRlroso65XtdzrzW9OhBg+DnVQn7luTsb7HF9a/CswkOsWucah4XVZSLB6LRuZ9O9Bj4Z80nhuVQGHxQSN6+8Y67ht2tV8DFQdDcNx+WCcOfRWBfBXM21xyGaXxfSkZq2NumCqiy+I9ZRglR5LCP8RQsyagwADVJhnAF7+mMEal/2zyukWFolO4/1IDgY9GgnCZhqe8e+EmHarHSBIe/6JmHVSgWsqzHl+i7bH5WbxWlkHU48FhF+DCZEj8wsX/OUrJy8iNbDAlw7IPf0jsV1DaIGx5zVGb4T3sIknM8QbfQJc1LWyqjheZBTGX34fTql7PKbts3Dy8wjCazHBClQTXDDNUIbJScLnKfPQe4EIs1BYA6dQOrcuvWZNPkO+ju5VyXm/LED0p7EXLTR3ZxbG2+9dy8RUgHQ78NqXXUmCD1EsQ4JJ1XpXYI2NKfG0Hb1OUhxXaBH4=
   file_glob: true
   file: 
     - ./**/*.log
@@ -141,5 +141,6 @@ deploy:
   overwrite: true
   on:
     branch: master
+    repo: ScottEllisNovatex/opendataconkafka
    
 
