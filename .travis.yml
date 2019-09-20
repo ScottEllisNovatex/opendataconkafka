@@ -115,8 +115,8 @@ script:
   - ls -la
   - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib
   - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
-  - $RUN cp /home/odcsrc/build/*.sh /mnt/build/
-  - ls -la
+  - $RUN cp -L -t -v /home/odcsrc/build/opendatacon*.sh /mnt/build/
+  - ls -l
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
 #        /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
