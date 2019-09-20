@@ -105,8 +105,6 @@ script:
   #- docker exec -i $DOCK sh -c '
   #      ls -lR / > dirlisting.log 
   #      '
-  - $RUN firewall-cmd --list-services
-  - $RUN firewall-cmd --list-ports
   - $RUN ls -lR / > dirlisting.log
   - $RUN ls -la /home
   - $RUN ls -la /home/odcsrc
