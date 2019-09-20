@@ -33,7 +33,7 @@ install:
         yum install -y oracle-softwarecollection-release-el7 &&
         /usr/bin/ol_yum_configure.sh &&
         yum repolist &&
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm &&
+        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm tar &&
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
@@ -106,12 +106,16 @@ script:
   #      ls -lR / > dirlisting.log 
   #      '
   - $RUN ls -lR / > dirlisting.log
-  - ls -la
   # - $RUN ls -la # This is the same as the command above!! The RUN command sets the workdir to /mnt/build
   - $RUN ls -la /home
   - $RUN ls -la /home/odcsrc
   - $RUN ls -la /home/odcsrc/build
   - $RUN ls -la /home/odcsrc/build/build
+  # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
+  - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
+  - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
+  - $RUN cp /home/odcsrc/build/opendatacon-*.sh /mnt/build
+  - ls -la
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
 #        /bin/cp -rf /mnt/build/opendatacon.conf /home/opendatacon.conf &&
@@ -122,9 +126,8 @@ script:
 #        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
 #        '
   - $STOP
-before_deploy:
-  - tar -zcvf /home/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
-  - tar -zcvf /home/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
+
+
     
 deploy:
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
@@ -134,9 +137,9 @@ deploy:
   file_glob: true
   file: 
     - ./**/*.log
-    - /home/librdkafka_oel7.tgz
-    - /home/confluent-kafka-python_oel7.tgz
-    - /home/odcsrc/build/opendatacon-*.sh
+    - librdkafka_oel7.tgz
+    - confluent-kafka-python_oel7.tgz
+    - opendatacon-*.sh
   name: "opendatacon_kafka_oel7.6 ${TRAVIS_TAG}"
   skip_cleanup: true
   draft: true
