@@ -108,8 +108,10 @@ script:
   - $RUN ls -lR / > dirlisting.log
   - $RUN ls -la /usr/local/lib
   - $RUN ls -la /home/odcsrc/build
-  - $RUN ls -la /home/odcsrc/build/*.sh
-  - $RUN cp -L -t /home/odcsrc/build/*.sh /mnt/build/
+  - docker exec -i $DOCK sh -c '
+        ls -la /home/odcsrc/build/*.sh &&
+        cp -L -t /home/odcsrc/build/*.sh /mnt/build/
+        '
   # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
   - ls -la
   - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib
