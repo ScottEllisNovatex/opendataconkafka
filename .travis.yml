@@ -106,15 +106,16 @@ script:
   #      ls -lR / > dirlisting.log 
   #      '
   - $RUN ls -lR / > dirlisting.log
-  # - $RUN ls -la # This is the same as the command above!! The RUN command sets the workdir to /mnt/build
   - $RUN ls -la /home
   - $RUN ls -la /home/odcsrc
   - $RUN ls -la /home/odcsrc/build
   - $RUN ls -la /home/odcsrc/build/build
+  - $RUN ls -la /usr/local/lib
   # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
-  - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib/librdkafka*
+  - ls -la
+  - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib
   - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
-  - $RUN cp /home/odcsrc/build/opendatacon-*.sh /mnt/build
+  - $RUN cp /home/odcsrc/build/*.sh /mnt/build/
   - ls -la
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
