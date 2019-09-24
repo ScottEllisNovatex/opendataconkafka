@@ -48,7 +48,7 @@ install:
         rpm -i libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm &&
         rpm -i libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm &&
         curl -O http://public-yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/scl-utils-build-20130529-19.el7.x86_64.rpm &&
-        cp scl-utils-build-20130529-19.el7.x86_64.rpm /mnt/build/rpms
+        cp -av scl-utils-build-20130529-19.el7.x86_64.rpm /mnt/build/rpms &&
         rpm -i scl-utils-build-20130529-19.el7.x86_64.rpm &&
         curl -O https://public-yum.oracle.com/repo/OracleLinux/OL7/optional/latest/x86_64/getPackage/libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
         rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
