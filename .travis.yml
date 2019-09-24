@@ -56,8 +56,11 @@ install:
         ln -s /usr/bin/cmake3 /bin/cmake &&
         cmake --version 
       '
+      # a two stage install process, to duplicate what we need to do in OTE. Also make the rpm files build artifacts.
   - docker exec -i $DOCK sh -c '
-        yum install -y rh-python36 rh-python36-python-devel &&
+        mkdir /mnt/build/rpms &&
+        yumdownloader --downloadonly --downloaddir=/mnt/build/rpms --resolve rh-python36 rh-python36-python-devel &&
+        yum install -y /mnt/build/rpms/*.rpm &&
         source scl_source enable rh-python36 &&
         python --version 
         '
@@ -135,6 +138,7 @@ deploy:
     - ./**/*.log
     - librdkafka_oel7.tgz
     - confluent-kafka-python_oel7.tgz
+    - rpms/*.rpm
     - opendatacon-*.sh
   name: "opendatacon_kafka_oel7.6 ${TRAVIS_TAG}"
   skip_cleanup: true
