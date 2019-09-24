@@ -112,10 +112,12 @@ script:
   - $RUN ls -lR / > dirlisting.log
   - $RUN ls -la /usr/local/lib
   - $RUN ls -la /home/odcsrc/build
+  - $RUN ls -la /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages
+  - $RUN ls -la /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent_kafka
   - docker exec -i $DOCK sh -c ' cp /home/odcsrc/build/*.sh /mnt/build/ '
   # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
   - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib
-  - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent-kafka
+  - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent_kafka
   - ls -la
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
