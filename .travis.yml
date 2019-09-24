@@ -83,7 +83,7 @@ install:
         git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
-        cp /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent-kafka-python /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent-kafka-python &&
+        cp /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent_kafka/ /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent-kafka &&
         cd .. 
         '
         # Result is  ...
