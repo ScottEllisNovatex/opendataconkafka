@@ -80,6 +80,7 @@ install:
         git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
+        cp /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent-kafka-python /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent-kafka-python &&
         cd .. 
         '
         # Result is  ...
@@ -111,7 +112,7 @@ script:
   - docker exec -i $DOCK sh -c ' cp /home/odcsrc/build/*.sh /mnt/build/ '
   # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
   - $RUN tar -zcvf /mnt/build/librdkafka_oel7.tgz /usr/local/lib
-  - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /home/confluent-kafka-python/build/lib.linux-x86_64-3.6
+  - $RUN tar -zcvf /mnt/build/confluent-kafka-python_oel7.tgz /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent-kafka-python
   - ls -la
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
@@ -123,8 +124,6 @@ script:
 #        LD_LIBRARY_PATH=/usr/local/lib ./opendatacon -c "/home/opendatacon.conf"
 #        '
   - $STOP
-
-
     
 deploy:
   # Upload testing log files and deploy packages for all develop builds. Searches recursively for all .log files.
