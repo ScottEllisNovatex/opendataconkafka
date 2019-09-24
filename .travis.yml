@@ -39,15 +39,9 @@ install:
         gcc --version &&
         g++ --version 
       '
-    # a two stage install process, to duplicate what we need to do in OTE. Also make the rpm files build artifacts.
+
   - docker exec -i $DOCK sh -c '
         mkdir /mnt/build/rpms &&
-        yumdownloader --downloadonly --destdir /mnt/build/rpms --resolve rh-python36 rh-python36-python-devel &&
-        yum install -y /mnt/build/rpms/*.rpm &&
-        source scl_source enable rh-python36 &&
-        python --version 
-        '
-  - docker exec -i $DOCK sh -c '
         cd /home &&
         curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-devel-3.0.6-2.el7.psychotic.x86_64.rpm &&
         curl -O http://packages.psychotic.ninja/7/plus/x86_64/RPMS//libmodbus-3.0.6-2.el7.psychotic.x86_64.rpm &&
@@ -60,6 +54,13 @@ install:
         rpm -i libmicrohttpd-devel-0.9.33-2.el7.x86_64.rpm &&
         rm *.rpm
       '
+          # a two stage install process, to duplicate what we need to do in OTE. Also make the rpm files build artifacts.
+  - docker exec -i $DOCK sh -c '
+        yumdownloader --downloadonly --destdir /mnt/build/rpms --resolve rh-python36 rh-python36-python-devel &&
+        yum install -y /mnt/build/rpms/*.rpm &&
+        source scl_source enable rh-python36 &&
+        python --version 
+        '
   - docker exec -i $DOCK sh -c '
         yum install -y cmake3-3.12.2 file &&
         ln -s /usr/bin/cmake3 /bin/cmake &&
