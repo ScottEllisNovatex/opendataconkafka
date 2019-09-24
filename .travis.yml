@@ -59,7 +59,7 @@ install:
       # a two stage install process, to duplicate what we need to do in OTE. Also make the rpm files build artifacts.
   - docker exec -i $DOCK sh -c '
         mkdir /mnt/build/rpms &&
-        yumdownloader --downloadonly --downloaddir=/mnt/build/rpms --resolve rh-python36 rh-python36-python-devel &&
+        yumdownloader --downloadonly --destdir /mnt/build/rpms --resolve rh-python36 rh-python36-python-devel &&
         yum install -y /mnt/build/rpms/*.rpm &&
         source scl_source enable rh-python36 &&
         python --version 
