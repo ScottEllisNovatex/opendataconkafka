@@ -120,8 +120,8 @@ script:
   - docker exec -i $DOCK sh -c ' cp /home/odcsrc/build/*.sh /mnt/build/ '
   # Put the targets in /mnt/build so they appear in the home folder in the controlling OS
   - $RUN tar -zcvf /mnt/build/rh_python36rpms.tgz -C /mnt/build/rpms .
-  - $RUN tar -zcvf /mnt/build/kafkalibs_oel7.tgz /usr/local/lib
-  - $RUN tar -zrvf /mnt/build/kafkalibs_oel7.tgz /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent_kafka
+  - $RUN tar -zcvf /mnt/build/kafkalibs_oel7.tgz /usr/local/lib /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent_kafka
+  #- $RUN tar -zcvf /mnt/build/kafkalibs_oel72.tgz /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/confluent_kafka
   - ls -la
   # Copy the two specific files for this test into the docker container
 #  - docker exec -i $DOCK sh -c '
