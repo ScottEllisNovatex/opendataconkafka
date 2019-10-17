@@ -1,4 +1,7 @@
-# Use a minimal distro as we are going to use docker anyway.
+# Build OpenDataCon, Kafka C Libs and Python Kafka libs in OEL7, which is what it will run on in production
+# We have to install all the build tools and source code to do this.
+# The result is deployed binaries, usually to the draft github repo, where we can turn them into "real"releases.
+#
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
 
