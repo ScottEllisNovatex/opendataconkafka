@@ -8,7 +8,7 @@
 
 language: python
 
-git:
+git: 
   depth: false # We might not need anything from git at this level?
   
 services:
