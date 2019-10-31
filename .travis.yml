@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 30-10-2019
+# 31-10-2019
 
 language: python
 
