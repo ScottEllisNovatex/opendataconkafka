@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 29-11-2019 - MD3 InputPointControl More loggin around unknown control codes
+# 9-12-2019 - Neils Sim Port additions sqllite.
 
 language: python
 
