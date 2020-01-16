@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 10-12-2019 - Minor PyPort changes related to Tags
+# 16-01-2020 - Check build still works
 
 language: python
 
