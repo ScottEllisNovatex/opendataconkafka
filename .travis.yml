@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 23-4-2020 Change MD3 and Conitel to keep the TCP connection alive on a multidrop - Fixed a bug
+# 24-4-2020 Change MD3 and Conitel to keep the TCP connection alive on a multidrop - Fixed a second bug
 
 language: python
 
