@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 11-05-2020 Added packet corruption to Conitel Outstation with UI control.
+# 13-05-2020 Fixed bug in packet corruption to Conitel Outstation with UI control. Added MD3
 
 language: python
 
