@@ -93,11 +93,12 @@ install:
         cp -avr /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent_kafka/ /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages &&
         cd .. 
         '
-        # Result is  ...
+        # Result is  ... - The git clone here, we really only want the current files, not the whole repo. So limit depth to 1.
+        # We can specifiy a branch or a tag with the -b flag. Branch is normally develop, but using a tag to find what broke the build.
   - docker exec -i $DOCK sh -c '
         cd /home &&
         source scl_source enable devtoolset-8 &&
-        git clone -b develop https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
+        git clone -b CHECKBUILD --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
         cd odcsrc &&
         mkdir build &&
