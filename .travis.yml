@@ -100,14 +100,21 @@ install:
         source scl_source enable devtoolset-8 &&
         git clone -b CHECKBUILD --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
-        cd odcsrc &&
-        mkdir build &&
-        cd build &&
+        mkdir /home/odcsrc/build
+       '
+  - docker exec -i $DOCK sh -c '
+        echo Starting Make and Package &&
+        cd /home/odcsrc/build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         make -j3 &&
-        make package &&
+        make package
+       '
+  - docker exec -i $DOCK sh -c '
+        echo Starting Install &&
+        cd /home/odcsrc/build &&
         make install &&
-        pwd 
+        pwd &&
+        echo Build, Package and Install Complete - Now collect Targets and Upload
       '
   - export RUN="docker exec --interactive --workdir /mnt/build $DOCK"
   - export STOP="docker stop $DOCK"
