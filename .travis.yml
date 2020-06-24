@@ -90,20 +90,21 @@ install:
         git clone --depth 1 https://github.com/confluentinc/confluent-kafka-python confluent-kafka-python &&
         cd confluent-kafka-python &&
         python setup.py build &&
-        cp -avr /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent_kafka/ /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages &&
-        cd .. 
+        cp -avr /home/confluent-kafka-python/build/lib.linux-x86_64-3.6/confluent_kafka/ /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages 
         '
         # Result is  ... - The git clone here, we really only want the current files, not the whole repo. So limit depth to 1.
         # We can specifiy a branch or a tag with the -b flag. Branch is normally develop, but using a tag to find what broke the build.
   - docker exec -i $DOCK sh -c '
         cd /home &&
-        source scl_source enable devtoolset-8 &&
         git clone -b CHECKBUILD --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
+        rm /home/odcsrc/version.cmake
+        curl -o /home/odcsrc/version.cmake https://1drv.ms/u/s!Al2YLGnwYZ_yguYRM7NmMp5JOH-0Fw?e=KFFG3W
         mkdir /home/odcsrc/build
        '
   - docker exec -i $DOCK sh -c '
         echo Starting Make and Package &&
+        source scl_source enable devtoolset-8 &&
         cd /home/odcsrc/build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         make -j3 &&
@@ -111,6 +112,7 @@ install:
        '
   - docker exec -i $DOCK sh -c '
         echo Starting Install &&
+        source scl_source enable devtoolset-8 &&
         cd /home/odcsrc/build &&
         make install &&
         pwd &&
