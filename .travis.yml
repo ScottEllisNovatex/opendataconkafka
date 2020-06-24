@@ -98,8 +98,8 @@ install:
         cd /home &&
         git clone -b CHECKBUILD --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
-        rm /home/odcsrc/version.cmake
-        wget  -O /home/odcsrc/build/version.make "https://onedrive.live.com/download?cid=F29F61F0692C985D&resid=F29F61F0692C985D%2145841&authkey=ANeXrfo1ZTGX7mc"
+        rm /home/odcsrc/version.cmake &&
+        wget --no-check-certificate -O /home/odcsrc/build/version.make "https://onedrive.live.com/download?cid=F29F61F0692C985D&resid=F29F61F0692C985D%2145841&authkey=ANeXrfo1ZTGX7mc" &&
         mkdir /home/odcsrc/build
        '
   - docker exec -i $DOCK sh -c '
