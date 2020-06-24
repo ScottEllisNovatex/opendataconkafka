@@ -128,7 +128,7 @@ script:
   #- docker exec -i $DOCK sh -c '
   #      ls -lR / > dirlisting.log 
   #      '
-  - $RUN (ls -lR / > dirlisting.log || true)
+  - $RUN ls -lR / > dirlisting.log || true
   - $RUN ls -la /usr/local/lib
   - $RUN ls -la /home/odcsrc/build
   - $RUN ls -la /mnt/build/rpms 
