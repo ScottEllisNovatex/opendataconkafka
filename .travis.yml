@@ -105,6 +105,8 @@ install:
   - docker exec -i $DOCK sh -c '
         echo Starting Make and Package &&
         source scl_source enable devtoolset-8 &&
+        gcc --version &&
+        g++ --version  &&
         cd /home/odcsrc/build &&
         cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         make -j3 &&
@@ -126,7 +128,7 @@ script:
   #- docker exec -i $DOCK sh -c '
   #      ls -lR / > dirlisting.log 
   #      '
-  - $RUN ls -lR / > dirlisting.log
+  - $RUN (ls -lR / > dirlisting.log || true)
   - $RUN ls -la /usr/local/lib
   - $RUN ls -la /home/odcsrc/build
   - $RUN ls -la /mnt/build/rpms 
