@@ -37,7 +37,7 @@ install:
         yum install -y oracle-softwarecollection-release-el7 &&
         /usr/bin/ol_yum_configure.sh &&
         yum repolist &&
-        yum install -y scl-utils glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm tar &&
+        yum install -y scl-utils wget glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm tar &&
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
@@ -99,7 +99,7 @@ install:
         git clone -b CHECKBUILD --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
         rm /home/odcsrc/version.cmake
-        curl -o /home/odcsrc/version.cmake https://1drv.ms/u/s!Al2YLGnwYZ_yguYRM7NmMp5JOH-0Fw?e=KFFG3W
+        wget --no-check-certificate -O /home/odcsrc/build/version.make "https://onedrive.live.com/download?cid=F29F61F0692C985D&resid=F29F61F0692C985D%2145841&authkey=ANeXrfo1ZTGX7mc"
         mkdir /home/odcsrc/build
        '
   - docker exec -i $DOCK sh -c '
