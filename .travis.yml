@@ -37,7 +37,7 @@ install:
         yum install -y oracle-softwarecollection-release-el7 &&
         /usr/bin/ol_yum_configure.sh &&
         yum repolist &&
-        yum install -y scl-utils wget glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make applydeltarpm tar &&
+        yum install -y scl-utils wget glibc-devel iso-codes redhat-rpm-config libmicrohttpd git make file applydeltarpm tar &&
         yum install -y devtoolset-8-gcc-c++ &&
         source scl_source enable devtoolset-8 &&
         gcc --version &&
@@ -66,7 +66,7 @@ install:
         python --version
         '
   - docker exec -i $DOCK sh -c '
-        yum install -y cmake3-3.12.2 file &&
+        yum install -y cmake3 &&
         ln -s /usr/bin/cmake3 /bin/cmake &&
         cmake --version 
       '
