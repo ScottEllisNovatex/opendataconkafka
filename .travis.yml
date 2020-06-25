@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 25-06-2020 WebUI complete, stability fixes in tests, c++17 a requirement
+# 25-06-2020/2 WebUI complete, stability fixes in tests, c++17 a requirement
 
 language: python
 
@@ -15,7 +15,7 @@ services:
   - docker
 
 env:
-  - BUILD_CONFIG=Release
+  - BUILD_CONFIG=Release # Does not get passed into the docker container...
 
 dist: bionic
 
@@ -106,7 +106,7 @@ install:
         gcc --version &&
         g++ --version  &&
         cd /home/odcsrc/build &&
-        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
+        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  -DBUILD_CONFIG=Release.. &&
         make -j3 &&
         make package
        '
