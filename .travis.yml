@@ -96,7 +96,7 @@ install:
         # We can specifiy a branch or a tag with the -b flag. Branch is normally develop, but using a tag to find what broke the build.
   - docker exec -i $DOCK sh -c '
         cd /home &&
-        git clone -b develop --depth 1 https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
+        git clone -b develop https://github.com/ScottEllisNovatex/opendatacon.git odcsrc &&
         ls -l &&
         mkdir /home/odcsrc/build
        '
