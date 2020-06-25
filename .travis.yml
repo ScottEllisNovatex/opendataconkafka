@@ -106,7 +106,7 @@ install:
         gcc --version &&
         g++ --version  &&
         cd /home/odcsrc/build &&
-        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DCMAKE_INSTALL_PREFIX=/home/install  -DBUILD_CONFIG=Release.. &&
+        cmake -DPYTHON_HOME=/opt/rh/rh-python36/root/usr -DFULL=ON -DBUILD_CONFIG=Release -DCMAKE_INSTALL_PREFIX=/home/install  .. &&
         make -j3 &&
         make package
        '
