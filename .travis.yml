@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 25-06-2020/2 WebUI complete, stability fixes in tests, c++17 a requirement
+# 30-06-2020/2 WebUI complete, Merge with Neils Bug fixes
 
 language: python
 
