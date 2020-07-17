@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 17-07-2020 Fixed stupid RC2 bug in get ConfigVersion
+# 17-07-2020 Fixed stupid RC2 bug in get ConfigVersion, Merged in Neils fixes
 
 language: python
 
