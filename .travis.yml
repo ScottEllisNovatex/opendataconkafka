@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 28-07-2020 Merged in more Neils fixes
+# 29-07-2020 quick fix for http restful interface crashes
 
 language: python
 
