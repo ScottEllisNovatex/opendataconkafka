@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 03-08-2020 Added Event Sink Transform (fixed), merged Neils connection manager sync code
+# 14-08-2020 First version of Tap Changer
 
 language: python
 
