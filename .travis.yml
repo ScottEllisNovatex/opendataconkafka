@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 14-08-2020 First version of Tap Changer
+# 24-08-2020 Neils DNP3 fixes, TapChanger Update, PyPort Message queuing fixes and config file fixes.
 
 language: python
 
