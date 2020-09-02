@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 1-09-2020 Merge with Neil Develop Branch
+# 2-09-2020 Fixed bug in setting an analog value in the simulator via the HTTP interface. Also setup a get method that allows setting of values. Easier to test using a web browser.
 
 language: python
 
