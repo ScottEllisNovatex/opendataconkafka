@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 7-09-2020 Changes to TapChanger config and functionality to support Conitel versions. (OnAction etc)
+# 8-09-2020 Conitel ANA6 Inversion Fix
 
 language: python
 
