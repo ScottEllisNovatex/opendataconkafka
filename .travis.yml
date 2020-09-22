@@ -4,7 +4,7 @@
 #
 # We could run a Python kafka consumer on this instance so that we can capture the messages sent from OEL7 to the kafka instance
 # Python is part of minimal anyway.
-# 8-09-2020 Conitel ANA6 Inversion Fix
+# 22-09-2020 Neil 1.4.0 Sync'd build
 
 language: python
 
